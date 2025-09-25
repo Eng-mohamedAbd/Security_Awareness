@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Security Awareness Training — New Employees</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#2dd4bf;
+      --danger:#ff6b6b;
+      --glass: rgba(255,255,255,0.03);
+      --maxw:1100px;
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Arial;
+      background:
+        linear-gradient(180deg,#071023 0%, #071a2b 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px 20px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:20px;
+      border:1px solid rgba(255,255,255,0.04);
+      position:sticky;
+      top:28px;
+      height: calc(100vh - 56px);
+      overflow:auto;
+    }
+    .brand{
+      display:flex;gap:12px;align-items:center;margin-bottom:12px;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#60a5fa);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#042023;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+    .title{font-weight:700;font-size:1rem}
+    .subtitle{font-size:0.82rem;color:var(--muted);margin-top:4px}
+
+    nav ol{list-style:none;padding:0;margin:18px 0}
+    nav li{margin:10px 0}
+    nav a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:600;
+      font-size:0.95rem;
+      display:block;padding:8px;border-radius:8px;
+    }
+    nav a:hover, nav a.active{background:rgba(45,212,191,0.06)}
+    .small{font-size:0.82rem;color:var(--muted);margin-top:12px}
+
+    /* MAIN */
+    main{background:transparent;padding:0}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:26px;
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.5);
+      margin-bottom:18px;
+    }
+    header h1{margin:0;font-size:1.6rem}
+    header p{color:var(--muted);margin:8px 0 0;font-size:0.95rem}
+
+    .section{margin-top:18px}
+    .section h2{margin:0 0 12px 0; font-size:1.15rem; color:#eaf7f5}
+    .section p{color:#cfe8ea;line-height:1.5}
+
+    .box{
+      background:var(--glass);
+      padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
+      margin-top:12px;
+    }
+
+    .red-flag{display:inline-block;background:rgba(255,107,107,0.12);color:var(--danger);padding:4px 8px;border-radius:8px;font-weight:700;font-size:0.8rem;margin-left:8px}
+
+    /* example email */
+    .example{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size:0.9rem;
+      color:#bfe8e2;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      padding:14px;border-radius:10px;margin-top:12px;border:1px solid rgba(255,255,255,0.03)
+    }
+    .example a{color:var(--accent);text-decoration:underline}
+
+    /* progress bar */
+    .progress-wrap{height:8px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden;margin:18px 0}
+    .progress{height:100%;background:linear-gradient(90deg,var(--accent),#60a5fa);width:0%;transition:width .25s ease}
+
+    /* collapsible */
+    .collapsible{cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px}
+    .arrow{transition:transform .2s ease}
+    .content{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s ease;padding:0 10px}
+
+    /* quiz */
+    .quiz-question{margin:12px 0;padding:12px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    .quiz-options button{display:block;width:100%;text-align:left;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit;cursor:pointer}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:#042023;font-weight:700;cursor:pointer}
+    .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    /* badges */
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-weight:600;font-size:0.8rem}
+
+    /* responsive */
+    @media (max-width:960px){
+      .wrap{grid-template-columns: 1fr; padding-bottom: 70px}
+      .sidebar{position:relative;height:auto;order:2}
+      main{order:1}
+    }
+
+    /* subtle animations */
+    .fade-in{opacity:0;transform:translateY(6px);animation:enter .6s forwards}
+    @keyframes enter{to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="application" aria-label="Security Awareness Training">
+    <aside class="sidebar card" aria-labelledby="toc-title">
+      <div class="brand">
+        <div class="logo">SS</div>
+        <div>
+          <div class="title">Security Awareness</div>
+          <div class="subtitle">New Employee Mandatory</div>
+        </div>
+      </div>
+
+      <div class="small">Contents</div>
+      <nav aria-label="Table of contents">
+        <ol>
+          <li><a href="#intro" data-target="intro">1. Introduction</a></li>
+          <li><a href="#social" data-target="social">2. Social Engineering</a></li>
+          <li><a href="#phishing" data-target="phishing">3. Phishing</a></li>
+          <li><a href="#vishing" data-target="vishing">4. Vishing</a></li>
+          <li><a href="#impersonation" data-target="impersonation">5. Impersonation</a></li>
+          <li><a href="#links" data-target="links">6. Malicious Links & Downloads</a></li>
+          <li><a href="#psych" data-target="psych">7. Scarcity & Urgency</a></li>
+          <li><a href="#practices" data-target="practices">8. Best Practices</a></li>
+          <li><a href="#quiz" data-target="quiz">9. Quiz</a></li>
+        </ol>
+      </nav>
+
+      <div style="margin-top:14px">
+        <div class="badge">Duration: ~15–20 min</div>
+      </div>
+
+      <div style="margin-top:18px;color:var(--muted);font-size:0.9rem">
+        <strong>Report Phishing:</strong>
+        <div class="small" style="margin-top:8px">Forward suspicious emails to <span style="color:var(--accent);font-weight:700">info_tech@mahoneyegypt.com</span></div>
+      </div>
+    </aside>
+
+    <main>
+      <article class="card fade-in" id="intro" tabindex="0">
+        <header>
+          <h1>🛡️ Security Awareness Training</h1>
+          <p>Essential knowledge for new employees — how attackers work, examples, and what to do.</p>
+        </header>
+
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress" id="progress"></div>
+        </div>
+
+        <section class="section" id="sec-intro">
+          <h2>1. Introduction</h2>
+          <div class="box">
+            <p><strong>Why this matters:</strong> Most breaches involve human interaction. An informed employee is the strongest defense.</p>
+            <p class="small" style="color:var(--muted)">This module covers social engineering, phishing, vishing, impersonation, malicious links, and psychological tactics attackers use.</p>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="social" tabindex="0">
+        <section class="section">
+          <h2>2. Social Engineering</h2>
+          <p>Social engineering is manipulation — attackers trick people into sharing data or taking actions that undermine security.</p>
+
+          <div class="box">
+            <strong>Common techniques:</strong>
+            <ul>
+              <li><strong>Pretexting:</strong> Fake scenarios to gain trust (e.g., "I'm from IT").</li>
+              <li><strong>Baiting:</strong> Offer something tempting (USBs, downloads).</li>
+              <li><strong>Quid pro quo:</strong> Exchange (help for credentials).</li>
+            </ul>
+          </div>
+
+          <div class="collapsible" data-target="pretext">
+            <div><strong>Tip — Verify identity</strong><div class="small" style="color:var(--muted)">Ask for official badge, call back on known number</div></div>
+            <div class="arrow">▸</div>
+          </div>
+          <div class="content" id="pretext">
+            <div class="box">
+              <p><strong>Actionable:</strong> If a caller asks for credentials, politely refuse and escalate. Use official channels only.</p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="phishing" tabindex="0">
+        <section class="section">
+          <h2>3. Phishing</h2>
+          <p>Phishing uses deceptive emails or websites to harvest credentials and deliver malware.</p>
+
+          <div class="example" role="region" aria-label="Example phishing email">
+            <div><strong>From:</strong> accounts@paypal-secure.com <span class="red-flag">RED FLAG: domain spoof</span></div>
+            <div><strong>Subject:</strong> URGENT: Confirm your account now <span class="red-flag">RED FLAG: urgency</span></div>
+            <hr style="border:none;border-top:1px dashed rgba(255,255,255,0.03);margin:8px 0">
+            <p>Dear Customer,<br>Please verify credentials by clicking the link below to avoid account closure within 24 hours.</p>
+            <p><a href="#" id="fakeLink">http://bit.ly/secure-verify</a> <span class="red-flag">suspicious link</span></p>
+            <div style="margin-top:10px"><button class="btn btn-secondary" id="inspectLink">Inspect link</button></div>
+          </div>
+
+          <div class="box" style="margin-top:12px">
+            <strong>Red flags:</strong>
+            <ul>
+              <li>Generic greeting</li>
+              <li>Threats or urgent time pressure</li>
+              <li>Suspicious sender or domain</li>
+              <li>Unexpected attachments or shortened URLs</li>
+            </ul>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="vishing" tabindex="0">
+        <section class="section">
+          <h2>4. Voice Phishing (Vishing)</h2>
+          <p>Vishing is phone-based social engineering. Attackers may spoof caller ID and pretend to be bank/IT support.</p>
+
+          <div class="box">
+            <strong>Scenarios:</strong>
+            <ul>
+              <li>Fake IT support asks you to install remote software — <strong>never</strong> grant remote access unless verified.</li>
+              <li>Bank requests full account numbers or OTP — call back on official number.</li>
+            </ul>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="impersonation" tabindex="0">
+        <section class="section">
+          <h2>5. Impersonation Attacks</h2>
+          <p>Attackers impersonate executives, vendors, or government officials to convince employees to transfer funds or share secrets.</p>
+
+          <div class="box">
+            <strong>How to respond:</strong>
+            <ul>
+              <li>Follow multi-step verification for wire transfers (call back known number + second approver).</li>
+              <li>Check email headers and domain carefully.</li>
+              <li>Escalate suspicious requests to security team.</li>
+            </ul>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="links" tabindex="0">
+        <section class="section">
+          <h2>6. Malicious Links & Downloads</h2>
+          <p>Shortened URLs and domain spoofing hide malicious targets. Attachments may contain macros or executables.</p>
+
+          <div class="box">
+            <strong>Checklist:</strong>
+            <ul>
+              <li>Hover links to preview destination (desktop)</li>
+              <li>Prefer visiting official site yourself instead of clicking links</li>
+              <li>Never run unknown .exe or macro-enabled documents</li>
+              <li>Report suspicious attachments to IT</li>
+            </ul>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="psych" tabindex="0">
+        <section class="section">
+          <h2>7. Scarcity, Urgency & Fear Tactics</h2>
+          <p>Attackers intentionally create pressure to reduce critical thinking. Pause before you act.</p>
+
+          <div class="box">
+            <strong>Counter-tactics:</strong>
+            <ul>
+              <li>Take time to verify — legitimate processes allow time</li>
+              <li>Ask "why the urgency?" and escalate</li>
+              <li>Involve colleagues or managers for second opinion</li>
+            </ul>
+          </div>
+        </section>
+      </article>
+
+      <article class="card fade-in" id="practices" tabindex="0">
+        <section class="section">
+          <h2>8. Best Practices & Reporting</h2>
+
+          <div class="box">
+            <ul>
+              <li>Use strong unique passwords + a password manager</li>
+              <li>Enable MFA for all corporate accounts</li>
+              <li>Lock your workstation when away</li>
+              <li>Keep software and browsers updated</li>
+              <li>Report suspicious emails to <strong>security@company.local</strong></li>
+            </ul>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" id="startQuiz">Take Quiz</button>
+            <button class="btn btn-secondary" id="printBtn">Print / Save PDF</button>
+          </div>
+        </section>
+      </article>
+
+      <!-- QUIZ -->
+      <article class="card fade-in" id="quiz" tabindex="0">
+        <section class="section">
+          <h2>9. Quick Quiz</h2>
+          <p>Check what you learned. Immediate feedback will be shown.</p>
+
+          <div id="quizArea">
+            <!-- question 1 -->
+            <div class="quiz-question" data-question="1">
+              <div><strong>1.</strong> You receive an email saying "Your account will be suspended in 24 hours" with a link. What is the safest first action?</div>
+              <div class="quiz-options" aria-label="Options">
+                <button data-correct="false">Click the link to verify immediately</button>
+                <button data-correct="true">Do not click; verify sender and contact support through official channels</button>
+                <button data-correct="false">Reply asking for more info</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+            </div>
+
+            <!-- question 2 -->
+            <div class="quiz-question" data-question="2">
+              <div><strong>2.</strong> A caller claiming to be IT asks for your password to "fix an issue." You should:</div>
+              <div class="quiz-options">
+                <button data-correct="false">Provide the password so they can fix it faster</button>
+                <button data-correct="true">Refuse and request they use ticketing or a verified remote session</button>
+                <button data-correct="false">Tell them your password but change it later</button>
+              </div>
+              <div class="feedback" aria-live="polite"></div>
+            </div>
+
+            <div style="margin-top:12px"><button class="btn" id="submitQuiz">Submit Quiz</button></div>
+            <div id="quizResult" style="margin-top:12px;color:var(--accent);font-weight:700"></div>
+          </div>
+        </section>
+      </article>
+
+      <footer class="card" style="text-align:center">
+        <div style="font-size:0.95rem">Security Awareness Training — Internal Use Only</div>
+        <div style="color:var(--muted);margin-top:6px;font-size:0.9rem">Version 1.0 · © AKG • Keep learning — report anything suspicious</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Smooth scrolling navigation
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const t = document.getElementById(a.dataset.target);
+        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Highlight active TOC by scroll position
+    const sections = Array.from(document.querySelectorAll('main article'));
+    const tocLinks = Array.from(document.querySelectorAll('nav a'));
+    function onScroll(){
+      const scrollPos = window.scrollY;
+      // progress bar
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min(100, Math.round((scrollPos / (docHeight||1)) * 100));
+      document.getElementById('progress').style.width = progress + '%';
+
+      let activeIndex = 0;
+      sections.forEach((sec, i)=>{
+        const rect = sec.getBoundingClientRect();
+        if(rect.top <= 120) activeIndex = i;
+      });
+      tocLinks.forEach(link => link.classList.remove('active'));
+      const target = sections[activeIndex] ? sections[activeIndex].id : null;
+      const activeLink = document.querySelector('nav a[data-target="'+ target +'"]');
+      if(activeLink) activeLink.classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    // Collapsibles
+    document.querySelectorAll('.collapsible').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        const arrow = el.querySelector('.arrow');
+        const id = el.dataset.target;
+        const c = document.getElementById(id);
+        if(!c) return;
+        if(c.style.maxHeight && c.style.maxHeight !== '0px'){
+          c.style.maxHeight = null;
+          c.style.padding = '0 10px';
+          arrow.style.transform = 'rotate(0deg)';
+        } else {
+          c.style.maxHeight = c.scrollHeight + 'px';
+          c.style.padding = '12px 10px';
+          arrow.style.transform = 'rotate(90deg)';
+        }
+      });
+    });
+
+    // Inspect link button (show real href preview & safety tips)
+    document.getElementById('inspectLink').addEventListener('click', ()=>{
+      const fake = document.getElementById('fakeLink');
+      const url = fake.getAttribute('href') || '';
+      alert('Preview:\n\nLink text: ' + fake.textContent + '\nURL (as shown): ' + url + '\n\nTip: hover link, check real domain, or type company site directly.');
+    });
+
+    // Print
+    document.getElementById('printBtn').addEventListener('click', ()=>{
+      window.print();
+    });
+
+    // Start quiz button scroll to quiz
+    document.getElementById('startQuiz').addEventListener('click', ()=>{
+      document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    });
+
+    // Quiz logic (immediate feedback per question)
+    document.querySelectorAll('.quiz-options button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const parent = btn.closest('.quiz-question');
+        const feedback = parent.querySelector('.feedback');
+        // mark selected visually
+        parent.querySelectorAll('.quiz-options button').forEach(b=>b.style.outline='none');
+        btn.style.outline='3px solid rgba(96,165,250,0.12)';
+        const correct = btn.dataset.correct === 'true';
+        feedback.textContent = correct ? 'Correct ✅' : 'Incorrect ❌';
+        feedback.style.color = correct ? 'var(--accent)' : 'var(--danger)';
+        // store answer
+        parent.dataset.answered = correct ? '1' : '0';
+      });
+    });
+
+    // Submit quiz: simple scoring
+    document.getElementById('submitQuiz').addEventListener('click', ()=>{
+      const qs = Array.from(document.querySelectorAll('.quiz-question'));
+      let score = 0;
+      qs.forEach(q=>{
+        if(q.dataset.answered === '1') score++;
+      });
+      const result = document.getElementById('quizResult');
+      result.textContent = `Score: ${score}/${qs.length} — ${score === qs.length ? 'Excellent!' : (score >= 1 ? 'Good — review the tips above.' : 'Please review the training and try again.')}`;
+      // accessible focus
+      result.setAttribute('tabindex','-1');
+      result.focus();
+    });
+
+    // Small keyboard accessibility: nav via numbers 1..9
+    window.addEventListener('keydown', (e)=>{
+      const k = Number(e.key);
+      if(k >=1 && k <=9){
+        const link = document.querySelectorAll('nav a')[k-1];
+        if(link) link.click();
+      }
+    });
+
+    // Small animation on load
+    document.querySelectorAll('.fade-in').forEach((el,i)=> el.style.animationDelay = (i*80)+'ms');
+
+    // Optional: warn user if click suspicious-looking "link" in example
+    document.getElementById('fakeLink').addEventListener('click', (ev)=>{
+      ev.preventDefault();
+      alert("This is an example of a suspicious link. Do not click links like this in real emails. Instead open the official website directly.");
+    });
+  </script>
+</body>
+</html>
